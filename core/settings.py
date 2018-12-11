@@ -29,7 +29,9 @@ SECRET_KEY = '(#%t-g+$6)*4_!($gn!n7_kx4vksx7_cq=f%u6hm&jq!kxdz8*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'kejikus.pythonanywhere.com'
+]
 
 
 # Application definition
