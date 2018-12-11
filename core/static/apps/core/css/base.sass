@@ -1,0 +1,26 @@
+@import "../sass/main"
+
+$header-height: 50px
+
+body
+  padding-top: $header-height
+
+#logo-header
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding-left: 10px
+  padding-right: 10px
+  height: $header-height
+  background-color: $primary-light
+  z-index: 9999
+  border-bottom: 2px solid $primary-color
+
+  .logo
+    display: block
+    font-weight: bold
+    font-family: "Roboto-Mono", sans-serif

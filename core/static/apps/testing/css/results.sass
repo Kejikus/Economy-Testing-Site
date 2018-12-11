@@ -1,0 +1,75 @@
+@import "main"
+$wrong-color: red
+$right-color: green
+$highlighted-color: yellow
+
+.container
+    @extend .card-like
+    background-color: $primary-light
+    border-radius: 0.5rem
+
+    > header
+        +apply-fonts()
+        +apply-colors($primary-color, $primary-text)
+        +apply-header-style()
+        padding: 1ex 1ex
+        border-radius: 0.5rem 0.5rem 0 0
+        text-align: center
+        font-weight: 400
+        font-size: 1.3rem
+
+        .id
+            display: block
+            +apply-colors($secondary-color, $secondary-text)
+            padding: 0.2ex 1ex
+            border-radius: 0.3ex
+            margin-top: 1ex
+            font-weight: 400
+            font-size: 1rem
+            text-transform: none
+
+.content
+    padding: 1ex 2ex 1ex 2ex
+
+.collapsible
+    border: none
+
+.collapsible-header
+    +apply-colors($secondary-color, $secondary-text)
+    text-transform: uppercase
+    border: none
+    display: flex
+    justify-content: space-between
+    transition: all 0.3s
+
+    &:hover
+        background-color: $secondary-light
+
+    .points
+        display: block
+
+.collapsible-body
+    +apply-fonts()
+    background-color: white
+
+    header
+        padding-bottom: 2ex
+
+label
+    display: block
+
+input[type="radio"]
+    + span
+        color: black !important
+
+    &:checked.wrong + span::after
+        background-color: $wrong-color
+        border-color: $wrong-color
+
+    &:checked.right + span::after
+        background-color: $right-color
+        border-color: $right-color
+
+    &:checked.highlighted + span::after
+        background-color: $highlighted-color
+        border-color: $highlighted-color

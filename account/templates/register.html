@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block head_after %}
+    <link rel="stylesheet" href="{{ static('apps/account/css/register.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container card-panel">
+        <header class="container-header">
+            Анкета участника тестирования
+        </header>
+        <div class="errors-container">
+            {% for error in errors %}
+            <div class="error">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <form method="post">
+            {{ csrf_input }}
+            <div class="question">
+                <div>{{ form.gender.label }}</div>
+                <div class="answer">
+                    {% for radio in form.gender %}
+                        <label>{{ radio.tag() }}<span>{{ radio.choice_label }}</span></label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="question">
+                <div>{{ form.age.label }}</div>
+                <div class="input-field">
+                    <label for="{{ form.age.id_for_label }}">{{ form.age.help_text }}</label>
+                    {{ form.age }}
+                </div>
+            </div>
+            <div class="question">
+                <div>{{ form.education.label }}</div>
+                <div class="answer">
+                    {% for radio in form.education %}
+                        <label>{{ radio.tag() }}<span>{{ radio.choice_label }}</span></label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="question">
+                <div>{{ form.activity_field.label }}</div>
+                <div class="answer">
+                    {% for radio in form.activity_field %}
+                        <label>{{ radio.tag() }}<span>{{ radio.choice_label }}</span></label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="question">
+                <div>{{ form.occupation.label }}</div>
+                <div class="answer">
+                    {% for radio in form.occupation %}
+                        <label>{{ radio.tag() }}<span>{{ radio.choice_label }}</span></label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="question">
+                <div>{{ form.economy_attitude.label }}</div>
+                <div class="answer">
+                    {% for radio in form.economy_attitude %}
+                        <label>{{ radio.tag() }}<span>{{ radio.choice_label }}</span></label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="hint">
+                Если после нажатия кнопки "Начать тест" вы не попали на страницу тестирования,
+                убедитесь в том, что в вашем браузере не отключены cookies и вы не находитесь в режиме приватного просмотра.
+            </div>
+
+            <div class="submit-container">
+                <input type="submit" value="Начать тест" class="submit-button">
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+
+{% block head_after %}
+    <link rel="stylesheet" href="{{ static("apps/testing/css/testing.css") }}">
+    <script src="{{ static("apps/testing/js/testing.js") }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="left-column">
+            <div class="timer">
+                <header> Осталось времени </header>
+                <div class="time-left"> 1:00:00 </div>
+            </div>
+            <div class="id">
+                <header> Ваш id </header> {{ user_data.token }}
+            </div>
+            <nav>
+                <header> Выбор вопроса </header>
+                <div class="buttons" id="nav-buttons">
+                    {% for item in questions %}
+                    <button type="button" class="select-button {{ "selected" if loop.first else "" }}"
+                            data-question="{{ loop.index }}">{{ loop.index }}</button>
+                    {% endfor %}
+
+                    {% for i in range(10) %}
+                    <button class="invisible"></button>
+                    {% endfor %}
+
+                    <button type="button" class="submit-button">Закончить тест</button>
+                </div>
+            </nav>
+        </div>
+        <form class="right-column" action="#" method="post" id="main-form">
+            <input type="hidden" name="id" value="{{ user_data.token }}">
+            {% for question in questions %}
+            <div class="question {{ "selected" if loop.first else "" }}" data-question="{{ loop.index }}">
+                <header>{{ question.text }}</header>
+                <div class="answer">
+                    {% for answer in question['answers'] %}
+                    <label>
+                        <input type="radio" name="{{ question.index }}" value="{{ answer.index }}">
+                        <span>{{ answer.text }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                <footer><div class="tip-icon"><i class="far fa-lightbulb"></i></div> Выберите единственный верный вариант ответа</footer>
+            </div>
+            {% endfor %}
+
+{#            <div class="question selected" question="1">#}
+{#                <header>Какое свойство присуще как экономическим, так и неэкономическим (свободным) благам?</header>#}
+{#                <div class="answer">#}
+{#                    <label>#}
+{#                        <input type="radio" name="1" value="1">#}
+{#                        <span>Ограниченность</span>#}
+{#                    </label>#}
+{#                    <label><input type="radio" name="1" value="2"><span>Полезность</span></label>#}
+{#                    <label><input type="radio" name="1" value="3"><span>Платность</span></label>#}
+{#                    <label><input type="radio" name="1" value="4"><span>Общедоступность</span></label>#}
+{#                    <label><input type="radio" name="1" value="5"><span>Способность к обмену</span></label>#}
+{#                </div>#}
+{#                <footer><div class="tip-icon"><i class="far fa-lightbulb"></i></div> Выберите единственный верный вариант ответа</footer>#}
+{#            </div>#}
+{#            <div class="question" question="2">#}
+{#                <header>Администрацией города N был подготовлен проект сбалансированного бюджета на 2018 год. Однако, стремясь учесть критические замечания вновь избранного мэра города N, администрация города внесла в него коррективы. Какое (какие) из перечисленных решений городской администрации (при прочих равных условиях) не приведет к образованию дефицита городского бюджета:</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="checkbox" name="2" value="1"><span>установление городской социальной выплаты за появление третьего ребенка в семье</span></label>#}
+{#                    <label><input type="checkbox" name="2" value="2"><span>принятие решение о строительстве городской кольцевой автомобильной дороги</span></label>#}
+{#                    <label><input type="checkbox" name="2" value="3"><span>введение налоговых льгот для вновь создаваемых малых предприятий</span></label>#}
+{#                    <label><input type="checkbox" name="2" value="4"><span>индексация окладов муниципальных служащих города</span></label>#}
+{#                    <label><input type="checkbox" name="2" value="5"><span>отмена субсидий жителям города на оплату жилищно-коммунальных услуг</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="3">#}
+{#                <header>Биржевые спекулянты, играющие на повышение курса акций, называются:</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="radio" name="3" value="1"><span>Акулами</span></label>#}
+{#                    <label><input type="radio" name="3" value="2"><span>Волками</span></label>#}
+{#                    <label><input type="radio" name="3" value="3"><span>Слонами</span></label>#}
+{#                    <label><input type="radio" name="3" value="4"><span>Быками</span></label>#}
+{#                    <label><input type="radio" name="3" value="5"><span>Медведями</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="4">#}
+{#                <header>Какие из налогов, действующих в Российской Федерации, относятся к группе косвенных налогов:</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="checkbox" name="4" value="1"><span>налог на добавленную стоимость</span></label>#}
+{#                    <label><input type="checkbox" name="4" value="2"><span>налог на добычу полезных ископаемых</span></label>#}
+{#                    <label><input type="checkbox" name="4" value="3"><span>налог на имущество организаций</span></label>#}
+{#                    <label><input type="checkbox" name="4" value="4"><span>налог на прибыль организаций</span></label>#}
+{#                    <label><input type="checkbox" name="4" value="5"><span>налог на доходы физических лиц</span></label>#}
+{#                    <label><input type="checkbox" name="4" value="6"><span>акциз на табачную продукцию</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="5">#}
+{#                <header>Что такое ВВП?</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="radio" name="5" value="1"><span>Сумма всех денежных доходов</span></label>#}
+{#                    <label><input type="radio" name="5" value="2"><span>Показатель экономической динамики страны</span></label>#}
+{#                    <label><input type="radio" name="5" value="3"><span>Прибыль всех предприятий</span></label>#}
+{#                    <label><input type="radio" name="5" value="4"><span>Валовый доход государства</span></label>#}
+{#                    <label><input type="radio" name="5" value="5"><span>Объем экспорта</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="6">#}
+{#                <header>Что из перечисленного обязательно будет наблюдаться во время инфляции?</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="radio" name="6" value="1"><span>снижение реальных располагаемых доходов населения</span></label>#}
+{#                    <label><input type="radio" name="6" value="2"><span>повышение цен на все товары и услуги, входящие в потребительскую корзину</span></label>#}
+{#                    <label><input type="radio" name="6" value="3"><span>увеличение номинальной заработной платы работников коммерческих банков</span></label>#}
+{#                    <label><input type="radio" name="6" value="4"><span>повышение общего уровня цен</span></label>#}
+{#                    <label><input type="radio" name="6" value="5"><span>увеличение величины средств, размещенных на депозитах до востребования</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="7">#}
+{#                <header>Укажите ошибку в характеристиках акционерного общества:</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="radio" name="7" value="1"><span>акционерное общество — предпринимательская организация, уставной капитал которой разделен на определенное количество акций</span></label>#}
+{#                    <label><input type="radio" name="7" value="2"><span>акционеры не отвечают по обязательствам акционерного общества и не обязаны участвовать в хозяйственной деятельности общества</span></label>#}
+{#                    <label><input type="radio" name="7" value="3"><span>участники акционерного общества имеют право на участие в общих собраниях акционеров и принятие решений по обсуждаемым там вопросам, а также на получение дивидендов на принадлежащие им акции</span></label>#}
+{#                    <label><input type="radio" name="7" value="4"><span>высшим органом управления акционерным обществом является совет директоров</span></label>#}
+{#                    <label><input type="radio" name="7" value="5"><span>текущее руководство деятельностью акционерного общества осуществляет коллегиальный или единоличный исполнительный орган, подотчетный совету директоров, наблюдательному совету и общему собранию акционеров</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="8">#}
+{#                <header>Выберите верные суждения об естественных монополиях:</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="checkbox" name="8" value="1"><span>деятельность естественных монополий запрещена в Российской Федерации</span></label>#}
+{#                    <label><input type="checkbox" name="8" value="2"><span>экономическая эффективность естественной монополии достигается за счет эффекта масштаба</span></label>#}
+{#                    <label><input type="checkbox" name="8" value="3"><span>естественные монополии возникают в результате сговора между товаропроизводителями</span></label>#}
+{#                    <label><input type="checkbox" name="8" value="4"><span>естественная монополия существует в ситуации, когда издержки производства товара или оказания услуги у единственной фирмы ниже, чем при наличии двух и более фирм</span></label>#}
+{#                    <label><input type="checkbox" name="8" value="5"><span>к естественным монополиям относятся предприятия коммунального обслуживания (водоснабжение, канализация)</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="9">#}
+{#                <header>По данным Банка России, в первом квартале 2017 года реальный эффективный курс рубля вырос на 35% по отношению к евро по сравнению с тем же периодом предыдущего года. При прочих равных условиях, это событие могло привести к увеличению:</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="radio" name="9" value="1"><span>числа туристических поездок граждан Франции в Россию</span></label>#}
+{#                    <label><input type="radio" name="9" value="2"><span>экспорта продукции французской парфюмерной промышленности в Россию</span></label>#}
+{#                    <label><input type="radio" name="9" value="3"><span>импорта Францией продукции российской химической промышленности</span></label>#}
+{#                    <label><input type="radio" name="9" value="4"><span>объема образовательных услуг, приобретаемых гражданами России во Франции</span></label>#}
+{#                    <label><input type="radio" name="9" value="5"><span>объема покупок гражданами Франции произведений современного российского искусства</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="10">#}
+{#                <header>В условиях мировой экономической нестабильности правительство страны перешло к политике протекционизма во внешней торговле. Укажите меры, которые оно могло использовать:</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="checkbox" name="10" value="1"><span>введение требования обязательного лицензирования всех импортируемых товаров</span></label>#}
+{#                    <label><input type="checkbox" name="10" value="2"><span>установление количественных ограничений на ввоз автомобилей из-за рубежа</span></label>#}
+{#                    <label><input type="checkbox" name="10" value="3"><span>введение экспортных пошлин на поставки алюминия на зарубежные рынки</span></label>#}
+{#                    <label><input type="checkbox" name="10" value="4"><span>отмена ограничений на деятельность иностранных банков на территории страны</span></label>#}
+{#                    <label><input type="checkbox" name="10" value="5"><span>введение эмбарго на поставку продовольствия из ряда стран</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="11">#}
+{#                <header>Персонаж романа Л.Н. Толстого «Анна Каренина» Рябинин покупает лес у С. Облонского. Чтобы снизить цену, Рябинин договаривается с другими купцами и доплачивает им за то, чтобы они не участвовали в торгах. Чтобы завладеть бизнесом конкурента, герой рассказа Н.С. Лескова «Расточитель» Князев заключает купца Молчанова в сумасшедший дом. Какие нечестные формы ведения бизнеса описаны в этих произведениях классической литературы?</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="checkbox" name="11" value="1"><span>хищение</span></label>#}
+{#                    <label><input type="checkbox" name="11" value="2"><span>ограничение конкуренции</span></label>#}
+{#                    <label><input type="checkbox" name="11" value="3"><span>вымогательство</span></label>#}
+{#                    <label><input type="checkbox" name="11" value="4"><span>преднамеренное банкротство</span></label>#}
+{#                    <label><input type="checkbox" name="11" value="5"><span>мошенничество</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="12">#}
+{#                <header>Хозяйство какого известного литературного персонажа (каких персонажей) можно охарактеризовать термином «натуральное хозяйство»?</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="radio" name="12" value="1"><span>помещика Плюшкина (поэма Н.В. Гоголя «Мертвые души»)</span></label>#}
+{#                    <label><input type="radio" name="12" value="2"><span>принца Гамлета (трагедия У. Шекспира «Гамлет»)</span></label>#}
+{#                    <label><input type="radio" name="12" value="3"><span>Робинзона Крузо (роман Д. Дефо «Робинзон Крузо»)</span></label>#}
+{#                    <label><input type="radio" name="12" value="4"><span>театра «Варьете», которым руководил Степан Лиходеев (роман М.А. Булгакова «Ма-стер и Маргарита»)</span></label>#}
+{#                    <label><input type="radio" name="12" value="5"><span>семьи Мелеховых (роман М.А. Шолохова «Тихий Дон»)</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="13">#}
+{#                <header>В какие международные организации входит Российская Федерация?</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="checkbox" name="13" value="1"><span>Организация экономического сотрудничества и развития (ОЭСР)</span></label>#}
+{#                    <label><input type="checkbox" name="13" value="2"><span>Организация стран-экспортеров нефти (ОПЕК)</span></label>#}
+{#                    <label><input type="checkbox" name="13" value="3"><span>Международный валютный фонд (МВФ)</span></label>#}
+{#                    <label><input type="checkbox" name="13" value="4"><span>Шанхайская организация сотрудничества (ШОС)</span></label>#}
+{#                    <label><input type="checkbox" name="13" value="5"><span>Евразийский банк развития (ЕАБР)</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="14">#}
+{#                <header>Что имеют в виду экономисты, когда утверждают ограниченность — фундаментальная экономическая проблема?</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="radio" name="14" value="1"><span>бывает так, что некоторые продукты можно купить только по очень высоким ценам</span></label>#}
+{#                    <label><input type="radio" name="14" value="2"><span>с ограниченностью ресурсов сталкиваются развивающиеся страны, экономически развитые страны смогли решить данную проблему</span></label>#}
+{#                    <label><input type="radio" name="14" value="3"><span>в любой экономике бывают периоды кризиса, когда существует ограниченность ресурсов</span></label>#}
+{#                    <label><input type="radio" name="14" value="4"><span>ограниченность ресурсов — проблема домохозяйств с низкими доходами</span></label>#}
+{#                    <label><input type="radio" name="14" value="5"><span>экономические ресурсы никогда не бывают достаточными, чтобы удовлетворить все потребности человечества</span></label>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="question" question="15">#}
+{#                <header>Какие из перечисленных видов расходов государственного бюджета, осуществленные в 2017 году, не будут учтены при исчислении величины ВВП России за 2017 год? Выберите полный и правильный вариант:</header>#}
+{#                <div class="answer">#}
+{#                    <label><input type="radio" name="15" value="1"><span>расходы государства на строительство моста через Керченский пролив</span></label>#}
+{#                    <label><input type="radio" name="15" value="2"><span>трансферты на выравнивание бюджетной обеспеченности регионов РФ</span></label>#}
+{#                    <label><input type="radio" name="15" value="3"><span>расходы на выплату заработной платы работникам учреждений системы высшего образования</span></label>#}
+{#                    <label><input type="radio" name="15" value="4"><span>расходы на восстановление населенных пунктов, пострадавших в результате паводка</span></label>#}
+{#                    <label><input type="radio" name="15" value="5"><span>расходы на приобретение новых видов вооружений для нужд российской армии</span></label>#}
+{#                </div>#}
+{#            </div>#}
+            <div class="buttons-panel">
+                <button class="button" id="prev-question" type="button">&larr; Предыдущий вопрос</button>
+                <button class="button" id="next-question" type="button">Следующий вопрос &rarr;</button>
+                <button class="button" id="mark-question" type="button">Отметить флажком</button>
+                <!-- <div class="button" id="end-test">Закончить тест</div> -->
+            </div>
+        </form>
+    </div>
+{% endblock %}

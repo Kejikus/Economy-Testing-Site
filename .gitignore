@@ -5,3 +5,7 @@ db.*
 *.db
 .DS_Store
 .idea
+Design_Dev/
+.vagrant/
+Vagrantfile
+virtualenv/

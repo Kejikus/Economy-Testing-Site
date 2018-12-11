@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ (title + " |") if title else "" }} Testing Project</title>
+    <link rel="stylesheet" href="{{ static('libs/materialize/sass/selected-materialize.css') }}">
+    <link rel="stylesheet" href="{{ static('apps/core/css/base.css') }}">
+    <link rel="stylesheet" href="{{ static('fonts/Roboto-Mono.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <script src="{{ static('libs/materialize.min.js') }}"></script>
+    <script src="{{ static('libs/jquery-3.3.1.min.js') }}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+    {% block head_after %}{% endblock %}
+</head>
+<body>
+    <header id="logo-header">
+        <div class="logo">Unnamed Testing Platform</div>
+    </header>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

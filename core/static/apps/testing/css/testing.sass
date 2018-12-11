@@ -1,0 +1,277 @@
+@import "../../core/sass/main"
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500&subset=cyrillic-ext')
+
+.container
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+
+  @media screen and (max-width: 479px)
+    flex-direction: column-reverse
+    justify-content: flex-start
+
+.left-column
+  width: 13em
+  flex-shrink: 0
+
+  @media screen and (max-width: 800px)
+    width: 10em
+
+  @media screen and (max-width: 479px)
+    width: auto
+
+  .timer
+    @extend .card-like
+    +apply-colors($primary-light, $primary-text)
+    border-radius: 1ex
+    margin-bottom: 0.4rem
+
+    header
+      +apply-colors($primary-color, $primary-text)
+      +apply-header-style()
+      +apply-fonts()
+      font-weight: 500
+      border-radius: 1ex 1ex 0 0
+      padding: 1ex 0
+      text-align: center
+
+    .time-left
+      text-align: center
+      font-size: 1.4em
+      padding: 1ex 0
+      font-family: 'Roboto-Mono', monospace
+      font-weight: 400
+      user-select: none
+
+  .id
+    @extend .card-like
+    +apply-colors($primary-light, $primary-text)
+    +apply-fonts()
+    text-align: center
+    border-radius: 0.3rem
+    margin-bottom: 0.4rem
+    padding-bottom: 0.5rem
+    font-size: 0.7em
+
+    header
+      +apply-colors($primary-color, $primary-text)
+      +apply-header-style()
+      font-weight: 500
+      border-radius: .3rem .3rem 0 0
+      padding: 0.3rem 0
+      margin-bottom: .5rem
+      font-size: 1rem
+
+  nav
+    @extend .card-like
+    +apply-colors($primary-light, $primary-text)
+    border-radius: 1ex
+    padding-bottom: 1.5ex
+
+    header
+      +apply-colors($primary-color, $primary-text)
+      +apply-header-style()
+      +apply-fonts()
+      font-weight: 500
+      border-radius: 1ex 1ex 0 0
+      text-align: center
+      padding: 1ex 0
+      margin-bottom: 0.5ex
+
+    .buttons
+      display: flex
+      justify-content: space-between
+      flex-wrap: wrap
+      padding: 0 1ex
+
+    .invisible
+      content: ''
+      display: block
+      border: none
+      padding: 0
+      width: 5ex
+      height: 0
+      margin: 0 0.7ex
+
+    .select-button
+      +apply-colors($secondary-color, $secondary-text)
+      +apply-button-style($secondary-light)
+      +button-center()
+      width: 5ex
+      height: 3.5ex
+      margin: 0.5ex 0.7ex
+      border-radius: 0.4ex
+      border-width: 0
+      padding-top: 0
+      position: relative
+      transition: all 0.3s
+
+      &.answered
+        +apply-colors($highlight-color, $highlight-text)
+
+      &.selected
+        padding-top: 0.4ex
+        border-bottom: solid $tertiary-color 0.4ex
+
+      &.marked:before
+        box-sizing: border-box
+        content: ''
+        position: absolute
+        right: 0
+        top: 0
+        width: 1ex
+        height: 1ex
+        border: solid transparent 6px
+        border-top-right-radius: 0.4ex
+        border-top-color: $accent-color
+        border-right-color: $accent-color
+
+
+    .submit-button
+      +apply-colors($secondary-color, $secondary-text)
+      +apply-button-style($secondary-light)
+      width: 100%
+      padding: 0.7ex
+      margin: 1ex 0.7ex 0 0.7ex
+      text-align: center
+      background: $secondary-color
+      border-radius: 0.2ex
+      border-width: 0
+
+.right-column
+  flex-grow: 1
+  margin-left: 4ex
+  margin-bottom: 1ex
+
+  @media screen and (max-width: 800px)
+    margin-left: 2ex
+
+  @media screen and (max-width: 479px)
+    margin-left: 0
+
+  .question
+    @extend .card-like
+    display: none
+    background: $primary-light
+    border-radius: 1ex
+    padding-bottom: 1ex
+
+    &:before
+      +apply-colors($primary-color, $primary-text)
+      +apply-header-style()
+      +apply-fonts()
+      font-weight: 500
+      border-radius: 1ex 1ex 0 0
+      content: 'Вопрос №'attr(data-question)
+      text-align: center
+      padding: 1ex 0
+      display: block
+
+    &.selected
+      display: block
+
+    header
+      padding: 1ex 3ex
+      font-size: 1.1em
+
+    footer
+      display: flex
+      align-items: center
+      padding: 1ex 3ex
+      +apply-fonts()
+
+      .tip-icon
+        margin-right: 1ex
+
+    label
+      display: flex
+      cursor: pointer
+      align-content: center
+      padding: 1ex 0
+      margin: 1ex 1.5ex
+      // border-bottom: solid $tretiary-color 0.3ex
+      border-radius: 0.3ex
+      background: lighten($primary-light, 9)
+      color: black
+
+      &:hover
+        background: lighten($primary-light, 13)
+
+      input
+        display: block
+
+        + span
+          line-height: normal
+          height: auto
+
+        &[type="radio"]:checked + span:after
+          background: $secondary-dark
+          border-color: $secondary-dark
+          top: 0
+          bottom: 0
+          margin-top: auto
+          margin-bottom: auto
+
+        &[type="radio"] + span::before
+          top: 0
+          bottom: 0
+          margin-top: auto
+          margin-bottom: auto
+
+        &[type="checkbox"]
+          &:checked + span:before
+            border-bottom-color: $secondary-dark
+            border-right-color: $secondary-dark
+            border-left: none
+            border-top: none
+            border-width: 3px
+          & + span:before
+            top: 0
+            bottom: 0
+            margin-top: auto
+            margin-bottom: auto
+            margin-left: 1ex
+
+  .buttons-panel
+    @extend .card-like
+    +apply-colors($primary-light, $primary-text)
+    border-radius: 1ex
+    margin-top: 1ex
+    display: flex
+    padding: 1ex 1.5ex
+    justify-content: space-between
+    flex-wrap: wrap
+
+    .button
+      +apply-colors($secondary-dark, $secondary-text)
+      +apply-button-style($secondary-color)
+      border: none
+      text-align: center
+      letter-spacing: 0.5px
+      font-size: 14px
+      border-radius: 2px
+      height: 36px
+      line-height: 36px
+      padding: 0 16px
+      text-transform: uppercase
+      vertical-align: middle
+      outline: 0
+      margin: 0.5ex 1ex
+      flex-grow: 1
+      box-sizing: content-box
+      width: 13.5em
+
+
+    // .button
+  //     +button-center()
+  //     border-width: 0
+  //     height: 4ex
+  //     margin: 0.5ex 1ex
+  //     min-width: 11em
+  //     flex-grow: 1
+  //     flex-shrink: 0
+  //     background: $secondary-color
+  //     border-radius: 0.5ex
+  //
+  //     +button-effects($secondary-color)

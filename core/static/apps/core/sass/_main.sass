@@ -1,0 +1,72 @@
+@import "../../../libs/materialize/sass/components/color-variables"
+@import "../../../libs/materialize/sass/components/variables"
+$primary-color: map-get($light-blue, "lighten-2")
+$primary-light: map-get($light-blue, "lighten-4")
+$primary-dark: map-get($light-blue, "base")
+$secondary-color: map-get($blue, "base")
+$secondary-light: map-get($blue, "lighten-2")
+$secondary-dark: map-get($blue, "darken-2")
+$primary-text: black
+$secondary-text: white
+$tertiary-color: #3E57FF
+$accent-color: map-get($red, "base")
+$highlight-color: map-get($yellow, "base")
+$highlight-text: black
+$error-color: map-get($red, "lighten-2")
+@function primary-color($opacity: 1)
+    @return change_color($primary-color, $alpha: $opacity)
+$border-width: .5ex
+
+=apply-colors($color, $text-color)
+    background: $color
+    color: $text-color
+
+=apply-header-style()
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.14), 0 3px 0 -2px rgba(0, 0, 0, 0.12), 0 1px 0 0 rgba(0, 0, 0, 0.2)
+
+=apply-card-style()
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2)
+
+=apply-fonts()
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif
+
+=apply-button-style($hover-color)
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2)
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif
+    transition: background-color 0.2s ease-out
+    cursor: pointer
+
+    &:hover
+        background: $hover-color
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2)
+
+=button-effects($bg-color)
+    cursor: pointer
+
+    &:hover
+        background: mix($bg-color, black, 93)
+
+    &:active
+        background: mix($bg-color, black, 85)
+
+=button-center()
+    display: flex
+    align-items: center
+    justify-content: center
+
+*
+    box-sizing: border-box
+    outline: none
+
+form
+    padding: 0
+    margin: 0
+
+.container
+    max-width: 1000px
+    margin-left: auto
+    margin-right: auto
+    margin-top: 2ex
+
+.card-like
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2)

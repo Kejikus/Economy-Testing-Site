@@ -1,0 +1,8 @@
+{
+    "compileOnSave": true,
+    "compilierOptions": {
+        "target": "es5",
+        "removeComments": true,
+        "sourceMap": true
+    }
+}
